@@ -1,1 +1,1 @@
-ruby --create ruby-2.0.0-p0@datasoup
+rvm --create ruby-2.0.0-p0@datasoup
