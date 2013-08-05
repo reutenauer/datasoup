@@ -26,8 +26,12 @@ class DataSiftQueryRunner
       stop if n == @results
 
       if interaction
-        sentiment = interaction['salience']['content']['sentiment']
-        puts "Sentiment = #{sentiment}: interaction['interaction']['content']"
+        if interaction['salience']
+          sentiment = interaction['salience']['content']['sentiment']
+        else
+          sentiment = nil
+        end
+        puts "Sentiment = #{sentiment}: #{interaction['interaction']['content']}"
         puts ''
         @output.puts(interaction.inspect)
         n += 1 if sentiment != 0
