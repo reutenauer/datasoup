@@ -27,9 +27,11 @@ Credit left for search: $<%= @datasift.balance %>
 
 <% if @term %>
   <h1>Results</h1>
-  <p>You searched for “<%= h(@term) %>”</p>
+  <div id="search-results">
+    <p>You searched for “<%= h(@term) %>”</p>
 
-  <p>About 0 results (0.00 seconds)</p>
+    <p>About 0 results (0.00 seconds)</p>
 
-  <p id="search-results">(Work in progress)</p>
+    <p>(Work in progress)</p>
+  </div>
 <% end %>

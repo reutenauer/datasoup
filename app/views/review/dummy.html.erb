@@ -1,1 +1,16 @@
-Coming soon: search results for “<%= @term %>”
+<% # Coming soon: search results for “%3c%= @term %%3d”
+%>
+<% # TODO: timing
+%>
+<p>Score: <%=
+  (@hits.inject(0) do |sum, hit|
+    sum + hit.first
+  end * 1.0 / @hits.count).round(1)
+%></p>
+
+<h2>Hits:</h2>
+<p><%= @hits.count %> results were considered for this score:</p>
+
+<% @hits.each do |hit| %>
+<p><%= hit.second %> (sentiment <%= hit.first %>)</p>
+<% end %>

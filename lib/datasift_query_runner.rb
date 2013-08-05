@@ -27,6 +27,7 @@ class DataSiftQueryRunner
   end
 
   def stop
+    # TODO Stop on time
     @output.close
     raise StopConsuming
   end
@@ -46,7 +47,7 @@ class DataSiftQueryRunner
           else
             sentiment = nil
           end
-          hits << "Sentiment = #{sentiment}: #{interaction['interaction']['content']}"
+          hits << [sentiment, interaction['interaction']['content']] if sentiment
           @output.puts(interaction.inspect)
           n += 1 if sentiment != nil and sentiment != 0
         end
