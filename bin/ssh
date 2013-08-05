@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/ssh -i /Users/arthur/.ssh/id_rsa-heroku "$@"
