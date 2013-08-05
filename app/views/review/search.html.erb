@@ -1,3 +1,19 @@
+<% if @term %>
+  <script type="text/javascript">
+    $.ajax({
+      url: "/review/dummy",
+      data: {
+        term: "<%= @term %>"
+      },
+      success: function(data) {
+        alert('foo!');
+        $("#search-results").html(data);
+      },
+      method: "post"
+    });
+  </script>
+<% end %>
+
 <h1>Search for reviews</h1>
 
 <% form_for :review do |f| %>
@@ -13,5 +29,5 @@
 
   <p>About 0 results (0.00 seconds)</p>
 
-  <p>(Work in progress)</p>
+  <p id="search-results">(Work in progress)</p>
 <% end %>

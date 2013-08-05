@@ -7,4 +7,9 @@ class ReviewController < ApplicationController
     @term = params[:review][:term] || ""
     render 'review/search'
   end
+
+  def dummy
+    @term = params[:term] || ""
+    render "review/dummy"
+  end
 end
