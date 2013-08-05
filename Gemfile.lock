@@ -1,3 +1,10 @@
+PATH
+  remote: vendor/gems/datasift
+  specs:
+    datasift (2.0.4)
+      rest-client (~> 1.6.3)
+      yajl-ruby (~> 1.1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -65,6 +72,8 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -79,11 +88,13 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
+    yajl-ruby (1.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  datasift!
   pg
   rails (= 3.0.10)
   rake (>= 10.1.0)

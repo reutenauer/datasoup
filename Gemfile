@@ -2,6 +2,9 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.10'
 
+# From https://github.com/datasift/datasift-ruby
+gem 'datasift', :path => 'vendor/gems/datasift'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
