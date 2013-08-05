@@ -41,6 +41,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.23)
+    pg (0.16.0)
     polyglot (0.3.3)
     rack (1.2.8)
     rack-mount (0.6.14)
@@ -82,6 +83,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  pg
   rails (= 3.0.10)
   rake (>= 10.1.0)
   rspec
