@@ -23,7 +23,7 @@ class DataSiftQueryRunner
       raise
     end
     @user = DataSift::User.new(@username, @apikey)
-    @output = File.open(File.join(Rails.root('public', 'datasoup.txt')), 'a')
+    @output = File.open(File.join(Rails.root, 'public', 'datasoup.txt'), 'a')
   end
 
   def stop
