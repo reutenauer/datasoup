@@ -4,7 +4,7 @@ class ReviewController < ApplicationController
   end
 
   def results
-    @term = params['review']['term']
+    @term = params['review']['term'] || ""
     render 'review/results'
   end
 end
