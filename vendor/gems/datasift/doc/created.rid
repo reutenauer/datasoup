@@ -1,0 +1,12 @@
+Mon, 05 Aug 2013 10:49:04 +0100
+lib/DataSift/stream_consumer_http.rb	Mon, 05 Aug 2013 00:58:25 +0100
+lib/DataSift/stream_consumer.rb	Mon, 05 Aug 2013 00:58:25 +0100
+lib/DataSift/exceptions.rb	Mon, 05 Aug 2013 00:58:25 +0100
+lib/DataSift/historic.rb	Mon, 05 Aug 2013 00:58:25 +0100
+lib/DataSift/apiclient.rb	Mon, 05 Aug 2013 00:58:25 +0100
+lib/DataSift/user.rb	Mon, 05 Aug 2013 00:58:25 +0100
+lib/DataSift/push_subscription.rb	Mon, 05 Aug 2013 00:58:25 +0100
+lib/DataSift/mockapiclient.rb	Mon, 05 Aug 2013 00:58:25 +0100
+lib/DataSift/push_definition.rb	Mon, 05 Aug 2013 00:58:25 +0100
+lib/DataSift/definition.rb	Mon, 05 Aug 2013 00:58:25 +0100
+lib/datasift.rb	Mon, 05 Aug 2013 00:58:25 +0100
