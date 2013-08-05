@@ -34,7 +34,7 @@ class DataSiftQueryRunner
         puts "Sentiment = #{sentiment}: #{interaction['interaction']['content']}"
         puts ''
         @output.puts(interaction.inspect)
-        n += 1 if sentiment != 0
+        n += 1 if sentiment != nil and sentiment != 0
       end
     end
   end
