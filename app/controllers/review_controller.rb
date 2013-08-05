@@ -1,5 +1,6 @@
 class ReviewController < ApplicationController
   def search
+    @datasift = DataSiftQueryRunner.new
     render 'review/search'
   end
 

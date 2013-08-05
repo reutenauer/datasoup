@@ -22,6 +22,9 @@
   <%= f.submit('Search') %>
 <% end %>
 
+<p>
+Credit left for search: $<%= @datasift.balance %>
+
 <% if @term %>
   <h1>Results</h1>
   <p>You searched for “<%= h(@term) %>”</p>

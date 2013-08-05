@@ -38,4 +38,8 @@ class DataSiftQueryRunner
       end
     end
   end
+
+  def balance
+    @user.getBalance['credit']
+  end
 end
