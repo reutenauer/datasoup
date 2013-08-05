@@ -31,3 +31,4 @@ gem 'sqlite3'
 # end
 
 gem 'rake', '>= 10.1.0'
+gem 'rspec'
