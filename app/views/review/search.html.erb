@@ -2,7 +2,7 @@
 
 <% form_for :review do |f| %>
   Search for:
-  <%= f.text_field :term %>
+  <%= f.text_field :term, :tabindex => 1 %>
   <p>
   <%= f.submit('Search') %>
 <% end %>
