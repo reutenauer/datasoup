@@ -4,6 +4,9 @@ require 'yaml'
 require 'datasift'
 
 class DataSiftQueryRunner
+  class StopConsuming < Exception
+  end
+
   def initialize(results = 3)
     @results = results
     if ENV['DATASIFT_APIKEY']
@@ -25,28 +28,33 @@ class DataSiftQueryRunner
 
   def stop
     @output.close
-    exit(0)
+    raise StopConsuming
   end
 
   def start(query)
+    hits = []
     definition = @user.createDefinition(query)
     consumer = definition.getConsumer(DataSift::StreamConsumer::TYPE_HTTP)
     n = 0
-    consumer.consume(true) do |interaction|
-      stop if n == @results
+    begin
+      consumer.consume(true) do |interaction|
+        stop if n == @results
 
-      if interaction
-        if interaction['salience']
-          sentiment = interaction['salience']['content']['sentiment']
-        else
-          sentiment = nil
+        if interaction
+          if interaction['salience']
+            sentiment = interaction['salience']['content']['sentiment']
+          else
+            sentiment = nil
+          end
+          hits << "Sentiment = #{sentiment}: #{interaction['interaction']['content']}"
+          @output.puts(interaction.inspect)
+          n += 1 if sentiment != nil and sentiment != 0
         end
-        puts "Sentiment = #{sentiment}: #{interaction['interaction']['content']}"
-        puts ''
-        @output.puts(interaction.inspect)
-        n += 1 if sentiment != nil and sentiment != 0
       end
+    rescue StopConsuming
     end
+
+    hits
   end
 
   def balance
