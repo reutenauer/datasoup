@@ -10,6 +10,6 @@ class ReviewController < ApplicationController
 
   def dummy
     @term = params[:term] || ""
-    render "review/dummy"
+    render '/review/dummy'
   end
 end
