@@ -2,11 +2,15 @@
 %>
 <% # TODO: timing
 %>
-<p>Score: <%=
-  (@hits.inject(0) do |sum, hit|
+<p>Score:
+<% if @hits.count == 0 %>
+  <em>nil</em>
+<% else %>
+  <%= (@hits.inject(0) do |sum, hit|
     sum + hit.first
-  end * 1.0 / @hits.count).round(1)
-%></p>
+  end * 1.0 / @hits.count).round(1) %>
+<% end %>
+</p>
 
 <h2>Hits:</h2>
 <p><%= @hits.count %> results were considered for this score:</p>
