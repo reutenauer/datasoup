@@ -1,0 +1,8 @@
+<h1>Search for reviews</h1>
+
+<% form_for :review do |f| %>
+  Search for:
+  <%= f.text_field :term %>
+  <p>
+  <% f.submit %>
+<% end %>
