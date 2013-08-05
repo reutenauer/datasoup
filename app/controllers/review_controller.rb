@@ -5,6 +5,6 @@ class ReviewController < ApplicationController
 
   def results
     @term = params[:review][:term] || ""
-    render 'review/results'
+    render 'review/search'
   end
 end
