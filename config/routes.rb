@@ -1,4 +1,5 @@
 Datasoup::Application.routes.draw do
+  match '/' => 'root#index', :via => :get
   match 'review' => 'review#search', :via => :get
   match 'review' => 'review#results', :via => :post
 
