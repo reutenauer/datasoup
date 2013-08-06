@@ -6,3 +6,5 @@ require 'rake'
 require 'resque/tasks'
 
 Datasoup::Application.load_tasks
+
+task "resque:setup" => :environment
