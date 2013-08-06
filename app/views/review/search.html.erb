@@ -3,7 +3,7 @@
     function queryDataSift(id) {
       var n = 0;
       var intervalID = setInterval(function() { jQuery.post('/review/dummy2', { id: id }, function(results) {
-        if(n == 50) { clearInterval(intervalID); }
+        if(n == 200) { clearInterval(intervalID); }
         $("#search-results").html(results);
         n++;
       }) }, 3000);
