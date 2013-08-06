@@ -2,6 +2,8 @@
 
 require 'yaml'
 require 'datasift'
+require 'digest'
+require 'redis'
 
 class DataSiftQueryRunner
   class StopConsuming < Exception
@@ -59,7 +61,9 @@ class DataSiftQueryRunner
   end
 
   def dummy
-    Resque.enqueue(DummyJob)
+    unique_id = Digest::SHA1::hexdigest("dummy_job:0-query:#{Time.now.to_i}")
+    Resque.enqueue(DummyJob, unique_id)
+    unique_id
   end
 
   def balance
@@ -71,10 +75,12 @@ class DummyJob
   @queue = :dummy
   include Resque::Plugins::UniqueJob
 
-  def self.perform
+  def self.perform(unique_id)
+    redis = Redis.new
     10.times.inject([]) do |result, i|
       sleep(2)
-      result << [4 * i - 20, "Result no. #{i} for query."]
+      redis.rpush("#{unique_id}:score", 4 * i - 20)
+      redis.rpush("#{unique_id}:content", "Result no. #{i} for query.")
     end
   end
 end
