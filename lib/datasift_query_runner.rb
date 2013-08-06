@@ -88,7 +88,6 @@ class DataSiftQueryJob
     nb_results = qr.results
     user = qr.user
     output = qr.output
-    redis = Redis.new
     definition = user.createDefinition(query)
     consumer = definition.getConsumer(DataSift::StreamConsumer::TYPE_HTTP)
     n = 0
@@ -103,12 +102,12 @@ class DataSiftQueryJob
             sentiment = nil
           end
           if sentiment
-            redis.rpush("datasoup:#{unique_id}:score", sentiment)
-            redis.rpush("datasoup:#{unique_id}:content", interaction['interaction']['content'])
+            REDIS.rpush("datasoup:#{unique_id}:score", sentiment)
+            REDIS.rpush("datasoup:#{unique_id}:content", interaction['interaction']['content'])
             if interaction['klout']
-              redis.rpush("datasoup:#{unique_id}:klout", interaction['klout']['score'])
+              REDIS.rpush("datasoup:#{unique_id}:klout", interaction['klout']['score'])
             else
-              redis.rpush("datasoup:#{unique_id}:klout", "nil")
+              REDIS.rpush("datasoup:#{unique_id}:klout", "nil")
             end
           end
           puts "#{sentiment}: #{interaction['interaction']['content']}"
