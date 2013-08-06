@@ -72,7 +72,7 @@ class DataSiftQueryRunner
     content_list = "datasoup:#{unique_id}:content"
     l = redis.llen(score_list) # TODO check == llen("#{unique_id}:content")
     l.times.inject([]) do |hits, i|
-      hits << [redis.lindex(score_list, i), redis.lindex(content_list, i)]
+      hits << [redis.lindex(score_list, i).to_i, redis.lindex(content_list, i)]
     end
   end
 

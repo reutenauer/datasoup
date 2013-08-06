@@ -1,12 +1,19 @@
 <% if @term %>
   <script type="text/javascript">
+    function queryDataSift(id) {
+      setInterval(function() { jQuery.post('/review/dummy2', { id: id }, function(results) {
+        $("#search-results").html(results);
+      }) }, 1000);
+    }
+
     $.ajax({
       url: "/review/dummy",
       data: {
         term: "<%= escape_javascript(@term) %>"
       },
       success: function(data) {
-        $("#search-results").html(data);
+        id = data.trim();
+        queryDataSift(id);
       },
       method: "post"
     });
