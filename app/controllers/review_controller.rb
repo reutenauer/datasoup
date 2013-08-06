@@ -13,20 +13,20 @@ class ReviewController < ApplicationController
     render 'review/search'
   end
 
-  def dummy
+  def search_job_id
     @datasift = DataSiftQueryRunner.new
     @term = params[:term] || ""
     # @hits = @datasift.start("twitter.text contains \"#{@term}\"") # TODO escape!
     # @id = @datasift.dummy
     @id = @datasift.start("twitter.text contains \"#{@term}\"")
-    render 'review/dummy.txt'
+    render 'review/search_job_id.txt'
   end
 
-  def dummy2
+  def search_hits
     @datasift = DataSiftQueryRunner.new
     @id = params[:id]
     @hits = @datasift.hits(@id)
     puts "Controller: got #{@hits.count} hits so far."
-    render 'review/dummy2'
+    render 'review/search_hits'
   end
 end

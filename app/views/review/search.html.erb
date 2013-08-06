@@ -2,7 +2,7 @@
   <script type="text/javascript">
     function queryDataSift(id) {
       var n = 0;
-      var intervalID = setInterval(function() { jQuery.post('/review/dummy2', { id: id }, function(results) {
+      var intervalID = setInterval(function() { jQuery.post('/review/search_hits', { id: id }, function(results) {
         if(n == 200) { clearInterval(intervalID); }
         $("#search-results").html(results);
         n++;
@@ -10,7 +10,7 @@
     }
 
     $.ajax({
-      url: "/review/dummy",
+      url: "/review/search_job_id",
       data: {
         term: "<%= escape_javascript(@term) %>"
       },

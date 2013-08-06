@@ -2,8 +2,8 @@ Datasoup::Application.routes.draw do
   match '/' => 'root#index', :via => :get
   match 'review' => 'review#search', :via => :get
   match 'review' => 'review#results', :via => :post
-  match 'review/dummy' => 'review#dummy', :via => :post
-  match 'review/dummy2' => 'review#dummy2', :via => :post
+  match 'review/search_job_id' => 'review#search_job_id', :via => :post
+  match 'review/search_hits' => 'review#search_hits', :via => :post
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
