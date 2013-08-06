@@ -52,9 +52,10 @@ class DataSiftQueryRunner
     redis = Redis.new
     score_list = "datasoup:#{unique_id}:score"
     content_list = "datasoup:#{unique_id}:content"
+    klout_list = "datasoup:#{unique_id}:klout"
     l = redis.llen(score_list) # TODO check == llen("#{unique_id}:content")
     l.times.inject([]) do |hits, i|
-      hits << [redis.lindex(score_list, i).to_i, redis.lindex(content_list, i)]
+      hits << [redis.lindex(score_list, i).to_i, redis.lindex(content_list, i), redis.lindex(klout_list, i)]
     end
   end
 
@@ -104,6 +105,11 @@ class DataSiftQueryJob
           if sentiment
             redis.rpush("datasoup:#{unique_id}:score", sentiment)
             redis.rpush("datasoup:#{unique_id}:content", interaction['interaction']['content'])
+            if interaction['klout']
+              redis.rpush("datasoup:#{unique_id}:klout", interaction['klout']['score'])
+            else
+              redis.rpush("datasoup:#{unique_id}:klout", "nil")
+            end
           end
           puts "#{sentiment}: #{interaction['interaction']['content']}"
           output.puts(interaction.inspect)
