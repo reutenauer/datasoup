@@ -43,3 +43,4 @@ end
 
 gem 'rake', '>= 10.1.0'
 gem 'rspec'
+gem 'resque'
