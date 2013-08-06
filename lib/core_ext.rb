@@ -6,8 +6,4 @@ class Array
       sum + hit.first
     end * 1.0 / count
   end
-
-  def final_score
-    (average + 20) / 4
-  end
 end
