@@ -119,6 +119,7 @@ DEPENDENCIES
   pg
   rails (= 3.0.10)
   rake (>= 10.1.0)
+  redis
   resque
   resque-loner
   rspec
