@@ -3,7 +3,7 @@
     $.ajax({
       url: "/review/dummy",
       data: {
-        term: "<%= @term %>"
+        term: "<%= escape_javascript(@term) %>"
       },
       success: function(data) {
         $("#search-results").html(data);
