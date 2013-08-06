@@ -58,6 +58,13 @@ class DataSiftQueryRunner
     hits
   end
 
+  def dummy
+    10.times.inject([]) do |result, i|
+      sleep(10)
+      result << [4 * i - 20, "Result no. #{i} for query."]
+    end
+  end
+
   def balance
     @user.getBalance['credit']
   end
