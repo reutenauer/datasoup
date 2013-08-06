@@ -1,4 +1,5 @@
 require 'redis'
+include DataSiftHelper
 
 class ReviewController < ApplicationController
   def search

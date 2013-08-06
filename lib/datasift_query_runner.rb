@@ -115,3 +115,10 @@ class DataSiftQueryJob
 
   end
 end
+
+module DataSiftHelper
+  def sentiment_to_grade(score_array)
+    grade = ((score_array.average + 20) / 4).round(1)
+    "#{grade} / 10"
+  end
+end

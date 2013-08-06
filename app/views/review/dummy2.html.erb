@@ -6,9 +6,7 @@
 <% if @hits.count == 0 %>
   <em>nil</em>
 <% else %>
-  <%= (@hits.inject(0) do |sum, hit|
-    sum + hit.first
-  end * 1.0 / @hits.count).round(1) %>
+  <%= sentiment_to_grade(@hits) %>
 <% end %>
 </p>
 
