@@ -59,13 +59,22 @@ class DataSiftQueryRunner
   end
 
   def dummy
-    10.times.inject([]) do |result, i|
-      sleep(10)
-      result << [4 * i - 20, "Result no. #{i} for query."]
-    end
+    Resque.enqueue(DummyJob)
   end
 
   def balance
     @user.getBalance['credit']
+  end
+end
+
+class DummyJob
+  @queue = :dummy
+  include Resque::Plugins::UniqueJob
+
+  def self.perform
+    10.times.inject([]) do |result, i|
+      sleep(2)
+      result << [4 * i - 20, "Result no. #{i} for query."]
+    end
   end
 end
