@@ -14,5 +14,12 @@
 <p><%= @hits.count %> results were considered for this score:</p>
 
 <% @hits.each do |hit| %>
-<p><%= hit.second %> (sentiment <%= hit.first %>, klout score <%= hit.third %>)</p>
+  <p><%= hit.second %></p>
+  <p><em>sentiment <%= hit.first %></em>, <em>klout score </em>
+  <% if hit.third %>
+    <em><%= hit.third %></em>
+  <% else %>
+    nil
+  <% end %>
+  </em></p>
 <% end %>
