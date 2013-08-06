@@ -66,6 +66,16 @@ class DataSiftQueryRunner
     unique_id
   end
 
+  def hits(unique_id)
+    redis = Redis.new
+    score_list = "datasoup:#{unique_id}:score"
+    content_list = "datasoup:#{unique_id}:content"
+    l = redis.llen(score_list) # TODO check == llen("#{unique_id}:content")
+    l.times.inject([]) do |hits, i|
+      hits << [redis.lindex(score_list, i), redis.lindex(content_list, i)]
+    end
+  end
+
   def balance
     @user.getBalance['credit']
   end
@@ -79,8 +89,8 @@ class DummyJob
     redis = Redis.new
     10.times.inject([]) do |result, i|
       sleep(2)
-      redis.rpush("#{unique_id}:score", 4 * i - 20)
-      redis.rpush("#{unique_id}:content", "Result no. #{i} for query.")
+      redis.rpush("datasoup:#{unique_id}:score", 4 * i - 20)
+      redis.rpush("datasoup:#{unique_id}:content", "Result no. #{i} for query.")
     end
   end
 end

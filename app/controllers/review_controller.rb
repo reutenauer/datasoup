@@ -17,13 +17,8 @@ class ReviewController < ApplicationController
     @term = params[:term] || ""
     # @hits = @datasift.start("twitter.text contains \"#{@term}\"") # TODO escape!
     id = @datasift.dummy
-    redis = Redis.new
-    score_list = "#{id}:score"
-    content_list = "#{id}:content"
-    l = redis.llen(score_list) # TODO check == llen("#{unique_id}:content")
-    @hits = l.times.inject([]) do |hits, i|
-      hits << [redis.lindex(score_list, i), redis.lindex(content_list, i)]
-    end
+    @id = id
+    @hits = @datasift.hits(id)
     render 'review/dummy'
   end
 end
