@@ -11,8 +11,8 @@ class DataSiftQueryRunner
 
   def initialize(results = 3)
     @results = results
-    if ENV['DATASIFT_APIKEY']
     datasift_config = File.join(Rails.root, 'config', 'datasift.yml')
+    if ENV['DATASIFT_APIKEY']
       # FIXME Why we need that is incomprehensible.  Might be a problem
       # with the DataSift library below.
       @username = ENV['DATASIFT_USERNAME'].each_byte.inject("") { |s, b| s + b.chr }
