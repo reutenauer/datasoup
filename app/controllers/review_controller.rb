@@ -19,7 +19,7 @@ class ReviewController < ApplicationController
     # @hits = @datasift.start("twitter.text contains \"#{@term}\"") # TODO escape!
     # @id = @datasift.dummy
     @id = @datasift.start("twitter.text contains \"#{@term}\"")
-    render 'review/search_job_id.txt'
+    render 'review/search_job_id'
   end
 
   def search_hits
