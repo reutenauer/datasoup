@@ -9,6 +9,8 @@ class DataSiftQueryRunner
   class StopConsuming < Exception
   end
 
+  attr_reader :results, :user, :output
+
   def initialize(results = 3)
     @results = results
     datasift_config = File.join(Rails.root, 'config', 'datasift.yml')
@@ -35,29 +37,9 @@ class DataSiftQueryRunner
   end
 
   def start(query)
-    hits = []
-    definition = @user.createDefinition(query)
-    consumer = definition.getConsumer(DataSift::StreamConsumer::TYPE_HTTP)
-    n = 0
-    begin
-      consumer.consume(true) do |interaction|
-        stop if n == @results
-
-        if interaction
-          if interaction['salience']
-            sentiment = interaction['salience']['content']['sentiment']
-          else
-            sentiment = nil
-          end
-          hits << [sentiment, interaction['interaction']['content']] if sentiment
-          @output.puts(interaction.inspect)
-          n += 1 if sentiment != nil and sentiment != 0
-        end
-      end
-    rescue StopConsuming
-    end
-
-    hits
+    unique_id = Digest::SHA1::hexdigest("datasift_query:#{query}:#{Time.now.to_i}")
+    Resque.enqueue(DataSiftQueryJob, unique_id, query) # FIXME Blah
+    unique_id
   end
 
   def dummy
@@ -92,5 +74,44 @@ class DummyJob
       redis.rpush("datasoup:#{unique_id}:score", 4 * i - 20)
       redis.rpush("datasoup:#{unique_id}:content", "Result no. #{i} for query.")
     end
+  end
+end
+
+class DataSiftQueryJob
+  @queue = :datasift_query
+  include Resque::Plugins::UniqueJob
+
+  def self.perform(unique_id, query)
+    puts "DataSiftQuery worker called for query “#{query}” with ID #{unique_id}"
+    qr = DataSiftQueryRunner.new
+    nb_results = qr.results
+    user = qr.user
+    output = qr.output
+    redis = Redis.new
+    definition = user.createDefinition(query)
+    consumer = definition.getConsumer(DataSift::StreamConsumer::TYPE_HTTP)
+    n = 0
+    begin
+      consumer.consume(true) do |interaction|
+        stop if n == nb_results
+
+        if interaction
+          if interaction['salience']
+            sentiment = interaction['salience']['content']['sentiment']
+          else
+            sentiment = nil
+          end
+          if sentiment
+            redis.rpush("datasoup:#{unique_id}:score", sentiment)
+            redis.rpush("datasoup:#{unique_id}:content", interaction['interaction']['content'])
+          end
+          puts "#{sentiment}: #{interaction['interaction']['content']}"
+          output.puts(interaction.inspect)
+          n += 1 if sentiment != nil and sentiment != 0
+        end
+      end
+    rescue DataSiftQueryRunner::StopConsuming
+    end
+
   end
 end

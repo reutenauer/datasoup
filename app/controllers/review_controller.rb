@@ -16,7 +16,8 @@ class ReviewController < ApplicationController
     @datasift = DataSiftQueryRunner.new
     @term = params[:term] || ""
     # @hits = @datasift.start("twitter.text contains \"#{@term}\"") # TODO escape!
-    @id = @datasift.dummy
+    # @id = @datasift.dummy
+    @id = @datasift.start("twitter.text contains \"#{@term}\"")
     render 'review/dummy.txt'
   end
 
