@@ -1,3 +1,6 @@
+$LOAD_PATH << File.expand_path('../../app/helpers', __FILE__)
+require 'datasift_helper'
+
 class DummyJob
   @queue = :dummy
   include Resque::Plugins::UniqueJob
@@ -15,14 +18,14 @@ end
 class DataSiftQueryJob
   @queue = :datasift_query
   include Resque::Plugins::UniqueJob
-  include DataSiftHelper
+  include DatasiftHelper
 
   def self.perform(unique_id, query)
     puts "DataSiftQuery worker called for query “#{query}” with ID #{unique_id}"
     nb_results = 3
     output = File.open(File.join(Rails.root, 'public', 'datasoup.txt'), 'a')
 
-    user = DataSiftHelper.user
+    user = DatasiftHelper.user
     definition = user.createDefinition(query)
     consumer = definition.getConsumer(DataSift::StreamConsumer::TYPE_HTTP)
     n = 0

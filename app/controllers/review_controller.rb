@@ -1,5 +1,5 @@
 require 'redis'
-include DataSiftHelper
+include DatasiftHelper
 
 class ReviewController < ApplicationController
   def search
@@ -15,13 +15,13 @@ class ReviewController < ApplicationController
     @term = params[:term] || ""
     # @hits = @datasift.start("twitter.text contains \"#{@term}\"") # TODO escape!
     # @id = @datasift.dummy
-    @id = DataSiftHelper.search(@term)
+    @id = DatasiftHelper.search(@term)
     render 'review/search_job_id'
   end
 
   def search_hits
     @id = params[:id]
-    @hits = DataSiftHelper.hits(@id)
+    @hits = DatasiftHelper.hits(@id)
     puts "Controller: got #{@hits.count} hits so far."
     render 'review/search_hits'
   end

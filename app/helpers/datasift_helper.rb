@@ -5,7 +5,7 @@ require 'datasift'
 require 'digest'
 require 'redis'
 
-module DataSiftHelper
+module DatasiftHelper
   class StopConsuming < Exception
   end
 
@@ -21,7 +21,7 @@ module DataSiftHelper
     @username = dsconfig['username']
     @apikey = dsconfig['apikey']
   else
-    raise
+    raise "No DataSift credentials defined"
   end
   @user = DataSift::User.new(@username, @apikey)
 
