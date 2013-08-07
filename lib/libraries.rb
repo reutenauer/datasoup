@@ -1,2 +1,2 @@
-require 'datasift_query_runner'
+require 'resque_jobs'
 require 'core_ext'
