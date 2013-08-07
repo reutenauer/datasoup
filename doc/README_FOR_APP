@@ -1,1 +1,12 @@
 Coming soon: documentation of the application code.
+
+Main parts of the code:
+app/controllers for the controllers.
+app/views for ... the views.
+The code that would normally be in the models is in lib, as Rails
+insists that models should be connected to a database by default, and we
+don’t have any at this point.
+
+The main interface with DataSift is thus is lib/resque_job.rb, that is
+used to queue Resque jobs (background tasks); these write their output
+to a Redis database, that is polled by the front-end code.
