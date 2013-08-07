@@ -3,10 +3,12 @@ include DatasiftHelper
 
 class ReviewController < ApplicationController
   def search
+    @balance = DatasiftHelper.balance
     render 'review/search'
   end
 
   def results
+    @balance = DatasiftHelper.balance
     @term = params[:review][:term] || ""
     render 'review/search'
   end
