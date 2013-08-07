@@ -43,12 +43,6 @@ module DatasiftHelper
     unique_id
   end
 
-  def dummy
-    unique_id = Digest::SHA1::hexdigest("dummy_job:0-query:#{Time.now.to_i}")
-    Resque.enqueue(DummyJob, unique_id)
-    unique_id
-  end
-
   def self.hits(unique_id)
     score_list = "datasoup:#{unique_id}:score"
     content_list = "datasoup:#{unique_id}:content"

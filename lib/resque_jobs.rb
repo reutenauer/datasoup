@@ -1,20 +1,6 @@
 $LOAD_PATH << File.expand_path('../../app/helpers', __FILE__)
 require 'datasift_helper'
 
-class DummyJob
-  @queue = :dummy
-  include Resque::Plugins::UniqueJob
-
-  def self.perform(unique_id)
-    redis = Redis.new
-    10.times.inject([]) do |result, i|
-      sleep(2)
-      redis.rpush("datasoup:#{unique_id}:score", 4 * i - 20)
-      redis.rpush("datasoup:#{unique_id}:content", "Result no. #{i} for query.")
-    end
-  end
-end
-
 class DataSiftQueryJob
   @queue = :datasift_query
   include Resque::Plugins::UniqueJob

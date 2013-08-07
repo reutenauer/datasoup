@@ -1,4 +1,3 @@
-require 'redis'
 include DatasiftHelper
 
 class ReviewController < ApplicationController
@@ -15,8 +14,6 @@ class ReviewController < ApplicationController
 
   def search_job_id
     @term = params[:term] || ""
-    # @hits = @datasift.start("twitter.text contains \"#{@term}\"") # TODO escape!
-    # @id = @datasift.dummy
     @id = DatasiftHelper.search(@term)
     render 'review/search_job_id'
   end
