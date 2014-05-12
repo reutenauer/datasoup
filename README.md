@@ -10,8 +10,8 @@ Cursory description of the code base
 ------------------------------------
 
 Main parts of the code:
-app/controllers for the controllers.
-app/views for ... the views.
+app/controllers for the controllers.<br />
+app/views for ... the views.<br />
 The code that would normally be in the models is in lib, as Rails
 insists that models should be connected to a database by default, and we
 don’t have any at this point.
